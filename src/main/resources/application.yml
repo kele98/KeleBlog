@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: KeleBlog
+  data:
+    redis:
+      host: 192.168.3.41:6379
+  datasource:
+    url: jdbc:mysql://192.168.3.41:3306/KeleBlog
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: kele
+    password: kele1234
+  aop:
+    proxy-target-class: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  redis:
+    host: 192.168.3.41
+    port: 6379
+logging:
+  file:
+    path: /logs/log.log
+  level:
+    org.springframework.security: debug
+#    root: debug
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  global-config:
+    db-config:
+      logic-delete-field: is_delete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+#management:
+#  server:
+#   port: 10111
+#  endpoint:
+#    health:
+#      show-details: always
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#        exclude: beans

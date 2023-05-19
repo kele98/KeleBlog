@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.aikele.mapper.SysCommentMapper">
+
+    <select id="getComments" resultType="top.aikele.entity.SysCommentVo">
+        select a.id,a.article_id,a.comment,a.user_id,a.p_id,a.top_id,a.create_time,a.username,a.icon,a.to_user_id,sut.username as to_username
+            from (select sc.id,sc.article_id,sc.comment,sc.user_id,sc.p_id,sc.top_id,sc.create_time,su.username,su.icon,scp.user_id as to_user_id
+                  from sys_comment as sc join sys_user su on sc.user_id = su.id
+                      left join sys_comment as scp on sc.p_id = scp.id
+                  where sc.article_id = #{id})
+            as a left join sys_user as sut on sut.id = to_user_id order by create_time desc;
+    </select>
+</mapper>
